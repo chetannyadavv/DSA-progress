@@ -13,11 +13,16 @@ bool isPalindrome(char a[])
         }
         else
             return false;
-        return true;
     }
+    return true;
 }
 int main()
 {
     char a[1000];
     cin.getline(a, 1000);
+    if (isPalindrome(a))
+        cout << "true";
+    else
+        cout << "false";
+    cout << "\n";
 }
