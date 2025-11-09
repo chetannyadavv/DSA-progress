@@ -1,24 +1,14 @@
 {
   "files.exclude": {
-      "**/*.exe": true
+    "**/build": true
   },
-  "files.associations": {
-    "iostream": "cpp",
-    "ostream": "cpp",
-    "vector": "cpp",
-    "regex": "cpp",
-    "random": "cpp",
-    "string": "cpp",
-    "functional": "cpp",
-    "array": "cpp",
-    "bitset": "cpp",
-    "initializer_list": "cpp",
-    "utility": "cpp",
-    "valarray": "cpp",
-    "deque": "cpp",
-    "forward_list": "cpp",
-    "list": "cpp",
-    "unordered_map": "cpp",
-    "unordered_set": "cpp"
-  }
+  "code-runner.executorMap": {
+    "cpp": "bash -c 'builddir=\"$(dirname \"$0\")/../build\"; mkdir -p \"$builddir\"; outfile=\"$builddir/$(basename \"$0\" .cpp)\"; g++ \"$0\" -o \"$outfile\" && echo ✅ Built: \"$outfile\" && \"$outfile\"' ${file}"
+  },
+  "code-runner.runInTerminal": true,
+  "code-runner.saveFileBeforeRun": true,
+  "code-runner.clearPreviousOutput": true,
+  "C_Cpp.default.compilerPath": "/usr/bin/g++",
+  "C_Cpp.default.cppStandard": "c++17",
+  "C_Cpp.default.intelliSenseMode": "linux-gcc-x64"
 }

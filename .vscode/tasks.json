@@ -2,23 +2,36 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "type": "cppbuild",
-            "label": "C/C++: g++.exe build active file",
-            "command": "C:\\MinGW\\bin\\g++.exe",
-            "args": [
-                "-fdiagnostics-color=always",
-                "-g",
-                "${file}",
-                "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
-            ],
+            "label": "Build Current C++ File",
+            "type": "shell",
+            "command": "mkdir -p ${workspaceFolder}/build && g++ \"${file}\" -o \"${workspaceFolder}/build/${fileBasenameNoExtension}\" && echo ✅ Built: build/${fileBasenameNoExtension} && \"${workspaceFolder}/build/${fileBasenameNoExtension}\"",
             "options": {
-                "cwd": "${fileDirname}"
+                "shell": {
+                    "executable": "/bin/bash",
+                    "args": [
+                        "-c"
+                    ]
+                }
             },
-            "problemMatcher": ["$gcc"],
             "group": {
                 "kind": "build",
                 "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "Clean Build Files",
+            "type": "shell",
+            "command": "rm -rf ${workspaceFolder}/build && echo 🧹 Cleaned build folder",
+            "options": {
+                "shell": {
+                    "executable": "/bin/bash",
+                    "args": [
+                        "-c"
+                    ]
+                }
             }
         }
     ]
