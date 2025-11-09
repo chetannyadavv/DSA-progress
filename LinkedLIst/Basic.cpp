@@ -49,6 +49,16 @@ int lenght(node *head)
     }
     return count;
 }
+void insertAtTail(node *&head, int d)
+{
+    node *tail = head;
+    while (tail->next != NULL)
+    {
+        tail = tail->next;
+    }
+    node *temp = new node(d);
+    tail->next = temp;
+}
 void insertAtMiddle(node *&head, int d, int p)
 {
     if (head == NULL || p == 0)
@@ -72,15 +82,16 @@ void insertAtMiddle(node *&head, int d, int p)
     temp2->next = temp->next;
     temp->next = temp2;
 }
-void insertAtTail(node *&head, int d)
+
+bool search(node *head, int key)
 {
-    node *tail = head;
-    while (tail->next != NULL)
+    while (head)
     {
-        tail = tail->next;
+        if (head->data == key)
+            return true;
+        head = head->next;
     }
-    node *temp = new node(d);
-    tail->next = temp;
+    return false;
 }
 int main()
 {
@@ -94,4 +105,6 @@ int main()
     insertAtMiddle(head, 46, 0);
     insertAtTail(head, 50);
     view(head);
+    cout << "\n"
+         << search(head, 5);
 }
