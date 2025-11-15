@@ -93,6 +93,17 @@ bool search(node *head, int key)
     }
     return false;
 }
+node *takeInput()
+{
+    int d;
+    cin >> d;
+    node *head = NULL;
+    while (d != -1)
+    {
+        insertAtHead(head, d);
+        cin >> d;
+    }
+}
 int main()
 {
     node *head = NULL;
