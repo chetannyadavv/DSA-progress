@@ -104,6 +104,11 @@ node *takeInput()
         cin >> d;
     }
 }
+void operator<<(ostream &cout, node *head)
+{
+    view(head);
+    return;
+}
 int main()
 {
     node *head = NULL;
@@ -115,7 +120,5 @@ int main()
     cout << endl;
     insertAtMiddle(head, 46, 0);
     insertAtTail(head, 50);
-    view(head);
-    cout << "\n"
-         << search(head, 5);
+    cout << head;
 }
