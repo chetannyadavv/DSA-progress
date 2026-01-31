@@ -44,6 +44,8 @@ void deleteNode(node *&head, int data)
     node *del = getnode(head, data);
     if (del == NULL)
         return;
+    if (head == del)
+        head = head->next;
     node *temp = head;
     while (temp->next != del)
     {
