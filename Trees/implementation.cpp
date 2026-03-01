@@ -142,6 +142,9 @@ int replace(Node *root)
     root->data = leftSum + rightSum;
     return temp + root->data;
 }
+
+// CHetacking if a tree is height balanced
+
 class HBPair
 {
 public:
@@ -160,7 +163,7 @@ HBPair isHeightBalanced(Node *root)
     HBPair left = isHeightBalanced(root->left);
     HBPair right = isHeightBalanced(root->right);
     p.hieght = max(left.hieght, right.hieght) + 1;
-    if (abs(left.hieght - right.hieght <= 1) and left.balance and right.balance)
+    if (abs(left.hieght - right.hieght) <= 1 and left.balance and right.balance)
     {
 
         p.balance = true;
@@ -169,9 +172,75 @@ HBPair isHeightBalanced(Node *root)
         p.balance = false;
     return p;
 }
+// Building Tree froom Arrey
+Node *BuildTreeFromArray(int *a, int s, int e)
+{
+    if (s > e)
+        return NULL;
+
+    int mid = (s + e) / 2;
+    Node *root = new Node(a[mid]);
+    root->left = BuildTreeFromArray(a, s, mid - 1);
+    root->right = BuildTreeFromArray(a, mid + 1, e);
+    return root;
+}
+
+// Bui;ding Tree froom preorfer and inordertraversal
+
+Node *BuildTreeFromPreAndInorder(int *pre, int *in, int s, int e)
+{
+    static int i = 0;
+    Node *root = new Node(pre[i]);
+    int index = -1;
+    for (int j = s; j < e; j++)
+    {
+        if (in[j] == pre[i])
+        {
+            index = j;
+            break;
+        }
+    }
+    i++;
+    root->left = BuildTreeFromPreAndInorder(pre, in, s, index - 1);
+    root->right = BuildTreeFromPreAndInorder(pre, in, index - 1, e);
+    return root;
+}
+
+// To print all nodes at a distance K from a given target node
+int printAtDistanceK(Node *root, Node *target, int k)
+{
+    if (root == NULL)
+        return -1;
+
+    if (root == target)
+    {
+        printKthLevel(target, k + 1);
+        return 0;
+    }
+    int DL = printAtDistanceK(root->left, target, k);
+    if (DL != -1)
+    {
+        if (DL + 1 == k)
+            cout << root->data << " ";
+        else
+            printKthLevel(root->right, k - 2 - DL);
+        return 1 + DL;
+    }
+    int DR = printAtDistanceK(root->right, target, k);
+    if (DR != -1)
+    {
+        if (DR + 1 == k)
+            cout << root->data << " ";
+        else
+            printKthLevel(root->left, k - 2 - DR);
+        return 1 + DL;
+    }
+    return -1;
+}
 int main()
 {
     Node *root = buildTree();
+    Node *target = root->left->left;
     print(root); // ROOT -> LEFT -> RIGHT
     cout << endl;
     printIn(root); // LEFT -> ROOT -> RIGHT
@@ -179,6 +248,9 @@ int main()
     printPost(root); // LEFT -> RIGHT -> ROOT
     cout << endl;
     BFS(root);
+    // int arr[] = {8, 10, 23, 21, 23, 45, 67};
+    // Node *root = BuildTreeFromArray(arr, 0, 6);
+    // BFS(root);
     cout << endl;
     // printLevel(root);
     // 10 20 40 80 -1 -1 -1 50 -1 -1 30 60 -1 -1 70 90 -1 -1 -1
