@@ -237,7 +237,46 @@ int printAtDistanceK(Node *root, Node *target, int k)
     }
     return -1;
 }
-int main()
+
+Node *lca(Node *root, int a, int b)
+{
+    if (root == NULL)
+        return NULL;
+    if (root->data == a || root->data == b)
+        return root;
+    Node *leftans = lca(root->left, a, b);
+    Node *rightans = lca(root->right, a, b);
+    if (leftans != NULL and rightans != NULL)
+        return root;
+    if (leftans != NULL)
+        return leftans;
+    return rightans;
+}
+class MaximumSumPath
+{
+    int maxSum = 0;
+
+public:
+    int maxSum(Node *root)
+    {
+        dfs(root);
+        return maxSum;
+    }
+    int dfs(Node *root)
+    {
+        if (root == NULL)
+            return 0;
+        int left = max(0, dfs(root->left));
+        int right = max(0, dfs(root->right));
+
+        int currentSum = root->data + left + right;
+        maxSum = max(maxSum, currentSum);
+
+        return root->data + max(left, right);
+    }
+}
+
+main()
 {
     Node *root = buildTree();
     Node *target = root->left->left;
