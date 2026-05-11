@@ -42,6 +42,33 @@ public:
             }
         }
     }
+
+    void dfs_helper(T src, map<T, bool> &visited)
+    {
+
+        cout << src << " ";
+        visited[src] = true;
+
+        for (T nbr : l[src])
+        {
+            if (!visited[nbr])
+            {
+                dfs_helper(nbr, visited);
+            }
+        }
+    }
+
+    void dfs(T src)
+    {
+        map<T, bool> visited;
+
+        for (auto p : l)
+        {
+            T node = p.first;
+            visited[node] = false;
+        }
+        dfs_helper(src, visited);
+    }
 };
 
 int main()
@@ -53,4 +80,8 @@ int main()
     g.addEdge(3, 0);
 
     g.bfs(2);
+
+    cout << endl;
+
+    g.dfs(2);
 }
